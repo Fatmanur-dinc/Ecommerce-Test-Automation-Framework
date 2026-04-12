@@ -2,18 +2,23 @@ package com.ecommerce.tests.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 public class LoginPage {
 
     WebDriver driver;
+    WebDriverWait wait;
 
     By usernameField = By.id("username");
     By passwordField = By.id("password");
-    By loginButton = By.cssSelector("button[type='submit']");  // bunu değiştir
-    By errorMessage = By.id("flash");                          // bunu da değiştir
+    By loginButton = By.cssSelector("button[type='submit']");
+    By errorMessage = By.id("flash");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void navigateTo(String url) {
@@ -35,7 +40,9 @@ public class LoginPage {
     }
 
     public String getErrorMessage() {
-        return driver.findElement(errorMessage).getText();
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(errorMessage)
+        ).getText();
     }
 
     public String getCurrentUrl() {
