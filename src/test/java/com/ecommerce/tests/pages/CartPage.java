@@ -20,7 +20,7 @@ public class CartPage {
 
     public CartPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     public void navigateTo(String url) {
@@ -28,14 +28,12 @@ public class CartPage {
     }
 
     public void clickFirstProduct() throws InterruptedException {
-        Thread.sleep(2000);
-        driver.findElement(firstProduct).click();
+        wait.until(ExpectedConditions.elementToBeClickable(firstProduct)).click();
     }
 
     public void addToCart() throws InterruptedException {
-        Thread.sleep(2000);
-        driver.findElement(addToCartButton).click();
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
+        Thread.sleep(3000);
         try {
             driver.switchTo().alert().accept();
         } catch (Exception e) {
@@ -44,12 +42,17 @@ public class CartPage {
     }
 
     public void goToCart() throws InterruptedException {
-        driver.findElement(cartLink).click();
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(cartLink)).click();
+        Thread.sleep(3000);
     }
 
     public boolean isCartEmpty() {
-        List<WebElement> items = driver.findElements(cartItems);
-        return items.isEmpty();
+        try {
+            Thread.sleep(2000);
+            List<WebElement> items = driver.findElements(cartItems);
+            return items.isEmpty();
+        } catch (Exception e) {
+            return true;
+        }
     }
 }

@@ -17,15 +17,17 @@ public class OrderHistorySteps {
     @Before
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--window-size=1920,1080");
+        if (System.getenv("CI") != null) {
+            options.addArguments("--headless");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--disable-gpu");
+            options.addArguments("--window-size=1920,1080");
+        }
         driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
         orderHistoryPage = new OrderHistoryPage(driver);
     }
-
     @Given("user logs into demoblaze account")
     public void user_logs_into_demoblaze() throws InterruptedException {
         orderHistoryPage.navigateTo("https://www.demoblaze.com");
