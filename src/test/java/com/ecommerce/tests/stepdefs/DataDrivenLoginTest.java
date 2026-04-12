@@ -4,11 +4,15 @@ import com.ecommerce.tests.pages.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.time.Duration;
 
 public class DataDrivenLoginTest {
 
@@ -45,13 +49,15 @@ public class DataDrivenLoginTest {
         loginPage.clickLogin();
 
         if (shouldPass) {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.urlContains("secure"));
             Assert.assertTrue(
-                    loginPage.getCurrentUrl().contains("secure"),
+                    driver.getCurrentUrl().contains("secure"),
                     "Login başarılı olmalıydı ama olmadı: " + username
             );
         } else {
             Assert.assertFalse(
-                    loginPage.getCurrentUrl().contains("secure"),
+                    driver.getCurrentUrl().contains("secure"),
                     "Login başarısız olmalıydı ama geçti: " + username
             );
         }
