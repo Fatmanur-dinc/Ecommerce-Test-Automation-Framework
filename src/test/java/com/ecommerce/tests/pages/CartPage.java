@@ -17,6 +17,7 @@ public class CartPage {
     By addToCartButton = By.linkText("Add to cart");
     By cartLink = By.id("cartur");
     By cartItems = By.cssSelector("#tbodyid tr");
+    By deleteButton = By.linkText("Delete");
 
     public CartPage(WebDriver driver) {
         this.driver = driver;
@@ -54,5 +55,17 @@ public class CartPage {
         } catch (Exception e) {
             return true;
         }
+    }
+
+    public void removeFromCart() throws InterruptedException {
+        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(deleteButton)).click();
+        Thread.sleep(2000);
+    }
+
+    public boolean isCartEmptyAfterRemoval() throws InterruptedException {
+        Thread.sleep(2000);
+        List<WebElement> items = driver.findElements(cartItems);
+        return items.isEmpty();
     }
 }

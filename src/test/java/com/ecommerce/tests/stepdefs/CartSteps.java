@@ -60,6 +60,16 @@ public class CartSteps {
         Assert.assertFalse(cartPage.isCartEmpty());
     }
 
+    @Then("user removes the product from cart")
+    public void user_removes_product_from_cart() throws InterruptedException {
+        cartPage.removeFromCart();
+    }
+
+    @Then("cart should be empty after removal")
+    public void cart_should_be_empty_after_removal() throws InterruptedException {
+        Assert.assertTrue(cartPage.isCartEmptyAfterRemoval());
+    }
+
     @After
     public void tearDown() {
         if (driver != null) {

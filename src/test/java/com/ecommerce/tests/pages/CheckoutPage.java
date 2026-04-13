@@ -35,15 +35,15 @@ public class CheckoutPage {
     }
 
     public void addProductToCart() throws InterruptedException {
+        Thread.sleep(3000);
+        wait.until(ExpectedConditions.elementToBeClickable(firstProduct)).click();
         Thread.sleep(2000);
-        driver.findElement(firstProduct).click();
-        Thread.sleep(2000);
-        driver.findElement(addToCartButton).click();
+        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
         Thread.sleep(2000);
         try {
             driver.switchTo().alert().accept();
         } catch (Exception e) {
-            // alert gelmezse devam et
+
         }
     }
 
