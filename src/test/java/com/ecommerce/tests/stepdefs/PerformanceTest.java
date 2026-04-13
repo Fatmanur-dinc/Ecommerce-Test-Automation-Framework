@@ -26,7 +26,7 @@ public class PerformanceTest {
         driver.manage().window().maximize();
     }
 
-    @Test
+    @Test(groups = {"smoke", "regression"})
     public void testHomePageLoadTime() {
         long startTime = System.currentTimeMillis();
         driver.get("https://www.demoblaze.com");
@@ -37,7 +37,7 @@ public class PerformanceTest {
         Assert.assertTrue(loadTime < 10000, "Home page should load within 10 seconds. Actual: " + loadTime + " ms");
     }
 
-    @Test
+    @Test(groups = {"smoke", "regression"})
     public void testLoginPageLoadTime() {
         long startTime = System.currentTimeMillis();
         driver.get("https://the-internet.herokuapp.com/login");
@@ -48,7 +48,7 @@ public class PerformanceTest {
         Assert.assertTrue(loadTime < 10000, "Login page should load within 10 seconds. Actual: " + loadTime + " ms");
     }
 
-    @Test
+    @Test(groups = {"smoke", "regression"})
     public void testCartPageLoadTime() {
         driver.get("https://www.demoblaze.com");
         long startTime = System.currentTimeMillis();

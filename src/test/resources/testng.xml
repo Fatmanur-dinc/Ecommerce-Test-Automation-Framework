@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="E-Commerce Test Suite">
+
+    <test name="Smoke Tests">
+        <classes>
+            <class name="com.ecommerce.tests.stepdefs.DataDrivenLoginTest"/>
+            <class name="com.ecommerce.tests.stepdefs.PerformanceTest"/>
+        </classes>
+    </test>
+
+    <test name="Regression Tests">
+        <classes>
+            <class name="com.ecommerce.tests.stepdefs.BoundaryValueTest"/>
+            <class name="com.ecommerce.tests.stepdefs.FirefoxCompatibilityTest"/>
+            <class name="com.ecommerce.tests.stepdefs.PerformanceTest"/>
+        </classes>
+    </test>
+
+</suite>

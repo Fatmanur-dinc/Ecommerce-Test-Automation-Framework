@@ -33,21 +33,20 @@ public class BoundaryValueTest {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    // Kullanıcı adı sınır değer testleri
     @DataProvider(name = "usernameBoundary")
     public Object[][] usernameBoundaryData() {
         return new Object[][] {
-                {"", "SuperSecretPassword!", false},           // boş kullanıcı adı
-                {"t", "SuperSecretPassword!", false},          // 1 karakter
-                {"tomsmith", "SuperSecretPassword!", true},    // geçerli kullanıcı adı
-                {"tomsmithtomsmithtomsmithtomsmithtomsmith", "SuperSecretPassword!", false} // çok uzun
+                {"", "SuperSecretPassword!", false},
+                {"t", "SuperSecretPassword!", false},
+                {"tomsmith", "SuperSecretPassword!", true},
+                {"tomsmithtomsmithtomsmithtomsmithtomsmith", "SuperSecretPassword!", false}
         };
     }
 
-    @Test(dataProvider = "usernameBoundary")
-    public void testUsernameBoundaryValues(String username, String password, boolean shouldPass) {
+    @Test(dataProvider = "usernameBoundary", groups = {"regression"})
+    public void testUsernameBoundaryValues(String username, String password, boolean shouldPass) throws InterruptedException {
         driver.get("https://the-internet.herokuapp.com/login");
-
+        Thread.sleep(2000);
         driver.findElement(By.id("username")).sendKeys(username);
         driver.findElement(By.id("password")).sendKeys(password);
         driver.findElement(By.cssSelector("button[type='submit']")).click();
@@ -62,21 +61,20 @@ public class BoundaryValueTest {
         }
     }
 
-    // Şifre sınır değer testleri
     @DataProvider(name = "passwordBoundary")
     public Object[][] passwordBoundaryData() {
         return new Object[][] {
-                {"tomsmith", "", false},                        // boş şifre
-                {"tomsmith", "a", false},                      // 1 karakter şifre
-                {"tomsmith", "SuperSecretPassword!", true},    // geçerli şifre
-                {"tomsmith", "wrongpassword", false}           // yanlış şifre
+                {"tomsmith", "", false},
+                {"tomsmith", "a", false},
+                {"tomsmith", "SuperSecretPassword!", true},
+                {"tomsmith", "wrongpassword", false}
         };
     }
 
-    @Test(dataProvider = "passwordBoundary")
-    public void testPasswordBoundaryValues(String username, String password, boolean shouldPass) {
+    @Test(dataProvider = "passwordBoundary", groups = {"regression"})
+    public void testPasswordBoundaryValues(String username, String password, boolean shouldPass) throws InterruptedException {
         driver.get("https://the-internet.herokuapp.com/login");
-
+        Thread.sleep(2000);
         driver.findElement(By.id("username")).sendKeys(username);
         driver.findElement(By.id("password")).sendKeys(password);
         driver.findElement(By.cssSelector("button[type='submit']")).click();

@@ -44,7 +44,7 @@ public class DataDrivenLoginTest {
         };
     }
 
-    @Test(dataProvider = "loginData")
+    @Test(dataProvider = "loginData", groups = {"smoke", "regression"})
     public void testLogin(String username, String password, boolean shouldPass) {
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);

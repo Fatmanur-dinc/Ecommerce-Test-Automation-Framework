@@ -28,14 +28,14 @@ public class FirefoxCompatibilityTest {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    @Test
+    @Test(groups = {"regression"})
     public void testHomePageLoadsOnFirefox() {
         driver.get("https://www.demoblaze.com");
         Assert.assertTrue(driver.getTitle().contains("STORE"),
                 "Home page should load on Firefox");
     }
 
-    @Test
+    @Test(groups = {"regression"})
     public void testLoginOnFirefox() {
         driver.get("https://the-internet.herokuapp.com/login");
 
@@ -48,19 +48,19 @@ public class FirefoxCompatibilityTest {
                 "Login should work on Firefox");
     }
 
-    @Test
+    @Test(groups = {"regression"})
     public void testProductPageLoadsOnFirefox() throws InterruptedException {
         driver.get("https://www.demoblaze.com");
+        Thread.sleep(3000);
 
         wait.until(ExpectedConditions.elementToBeClickable(
                 By.linkText("Phones"))).click();
 
-        Thread.sleep(2000);
-        Assert.assertFalse(driver.findElements(
-                        By.className("card-title")).isEmpty(),
+        Thread.sleep(3000);
+        Assert.assertTrue(
+                !driver.findElements(By.className("card-title")).isEmpty(),
                 "Product list should be visible on Firefox");
     }
-
     @AfterMethod
     public void tearDown() {
         if (driver != null) {
