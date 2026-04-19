@@ -38,7 +38,7 @@ public class CartPage {
         try {
             driver.switchTo().alert().accept();
         } catch (Exception e) {
-            // alert gelmezse devam et
+
         }
     }
 
